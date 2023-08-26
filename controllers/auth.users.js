@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import  User  from '../models/User.js';
+import Project from '../models/project.js'
 //crear un objeto para utilizar funciones como propiedades, con el fin de exportar solo el objeto
 export const crtlUsers = {};
 

@@ -1,7 +1,7 @@
 //importar SEQUELIZE desde el archivo db de la conexión
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db.js";
-
+///modelo de usuarios
 const User =  sequelize.define('User',{
     id:{
         type:DataTypes.INTEGER,
@@ -31,7 +31,6 @@ const User =  sequelize.define('User',{
 },
 {
     sequelize,
-    paranoid:true,
     paranoid:true,
     modelName: 'User',
     tableName:'Users',
