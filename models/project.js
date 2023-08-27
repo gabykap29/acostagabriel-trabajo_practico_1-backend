@@ -2,19 +2,27 @@ import { sequelize } from "../db.js";
 import { DataTypes,Model } from "sequelize";
 import User from './User.js'
 //modelo de tareas
-const Project = sequelize.define('Task',{
-    id:{
+const Project = sequelize.define('Project',{
+    idProject:{
         type:DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
     },
-    name:{
+    title:{
         type:DataTypes.STRING,
         allowNull:false,
     },
     date:{
         type:DataTypes.DATE,
         allowNull:false
+    },
+    description:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    state:{
+        type: DataTypes.BOOLEAN, 
+        defaultValue:true
     },
 },{
     sequelize,
