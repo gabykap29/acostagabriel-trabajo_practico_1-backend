@@ -126,7 +126,7 @@ crtlTask.deleteTask = async (req,res)=>{
         const deleteTask = await Task.update({
             state:false
         },{where:{
-            idCategory,
+            idTask,
             state:true
         }});
         if(!deleteTask){

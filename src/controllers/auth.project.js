@@ -106,7 +106,7 @@ crtlProject.updateOne = async (req,res)=>{
             id: idUser,
         },{
         where:{
-            id,
+            idProject:id,
             state:true
         }});
         if(!projectUpdate){
@@ -115,7 +115,7 @@ crtlProject.updateOne = async (req,res)=>{
                 message:'Error al actilizar el proyecto!'
             });
         };
-        return res.status(201).json({projectUpdate});
+        return res.status(201).json({message:'Actualizado correctamente!'});
     } catch (error) {
         console.log(error);
         return res.status(error.message||500).json({message:'Error interno del servidor al actualizar el proyecto!'});
@@ -127,7 +127,7 @@ crtlProject.deleteProject = async (req,res)=>{
     try {
         const project = await Project.findOne({
             where:{
-                id:id,
+                idProject:id,
                 state:true,
             }
         });
@@ -141,7 +141,7 @@ crtlProject.deleteProject = async (req,res)=>{
             state:false,
         },{
         where:{
-            id,
+            idProject:id,
             state:true
         }
     }
