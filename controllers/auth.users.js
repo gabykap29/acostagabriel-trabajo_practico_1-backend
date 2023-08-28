@@ -31,9 +31,10 @@ crtlUsers.create = async (req,res)=>{
             pass: encriptpass,
         });
         if(!newUser){
-            throw{
+            throw({
+                status:400,
                 message:'Error, el usuario no se ha creado!'
-            };
+            });
         }
         //si todo sale bien, devuelve un status 201
         return res.status(201).json(newUser);

@@ -97,7 +97,6 @@ crtlProject.findAll = async (req,res)=>{
 crtlProject.updateOne = async (req,res)=>{
     const {id}= req.params;
     const {title,date,description,idUser} = req.body;
-    
     try {
         const projectUpdate = await Project.update({
             title,

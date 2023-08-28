@@ -21,7 +21,7 @@ const Category = sequelize.define('Category',{
 Category.addHook('afterSync', 'createDefaultCategories', async () => {
     try {
         const category = Category.findAll();
-        if(!category){
+        if((await category).length === 0){
             await Category.bulkCreate([
                 { categoryName: 'Desarrollo' },
                 { categoryName: 'Diseño' },

@@ -1,4 +1,5 @@
 //importar el modelo de Tareas
+import Category from "../models/Categories.js";
 import Task from "../models/Task.js";
 //exportar el objeto para trabajar con sus propiedades como funciones
 export const crtlTask = {};
@@ -34,7 +35,15 @@ try {
 crtlTask.findOne = async(req,res)=>{
     const {idTask} = req.params;
     try {
-        const task = await Task.findByPk(id);
+        const task = await Task.findOne(
+            {
+                where:{
+                    idTask,
+                },
+                include:{
+                    model:Category
+                }
+            },);
         if(!task){
             throw({
                 status:404,
@@ -57,6 +66,9 @@ crtlTask.findAll = async(req,res)=>{
             where:{
                 state:true,
                 idProject
+            },
+            include:{
+                model:Category
             }
         });
         return res.status(200).json({task});

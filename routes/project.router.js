@@ -9,6 +9,7 @@ projectRouter.post('/api/projects/create',
 validateSchema([
     body('title').notEmpty().withMessage('El título es obligatorio'),
     body('date').isISO8601().withMessage('La fecha no es válida'),
+    body('description').notEmpty().withMessage('la descripción es obligatoria'),
 ]),
 crtlProject.create);
 projectRouter.get('/api/projects',crtlProject.findAll);

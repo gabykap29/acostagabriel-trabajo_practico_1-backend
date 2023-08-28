@@ -49,7 +49,7 @@ Task.belongsTo(Project, { foreignKey: 'idProject' });
 Category.hasMany(Task, { foreignKey: 'idCategory' });
 Task.belongsTo(Category, { foreignKey: 'idCategory' });
 //crear si no existe la tabla tareas
-
-Task.sync();
 Category.sync();
+Task.sync();
+
 export default Task;
