@@ -1,12 +1,11 @@
 import bcrypt from 'bcryptjs';
 import  User  from '../models/User.js';
-import Project from '../models/project.js'
 //crear un objeto para utilizar funciones como propiedades, con el fin de exportar solo el objeto
 export const crtlUsers = {};
-
+//crear un usuario
 crtlUsers.create = async (req,res)=>{
-    console.log(req.body)
     const { name, lastname,username, pass} = req.body;
+    //primero, busca si el usuario no esta existente en la base de datos
     try {
         
         const userExist = await User.findOne({
@@ -14,6 +13,7 @@ crtlUsers.create = async (req,res)=>{
                 username,
             },
         });
+        //si existe, devuelve un error 400
         if (userExist){
             throw{
                 status:400,
@@ -35,7 +35,7 @@ crtlUsers.create = async (req,res)=>{
                 message:'Error, el usuario no se ha creado!'
             };
         }
-        //si todo sale bien
+        //si todo sale bien, devuelve un status 201
         return res.status(201).json(newUser);
     } catch (error) {
         console.log(error);
@@ -48,7 +48,12 @@ crtlUsers.create = async (req,res)=>{
 crtlUsers.findOne = async (req,res)=>{
     const {id}= req.params;
     try {
-        const user = await User.findByPk(id);
+        const user = await User.findOne({
+            
+            where:{
+                idUser:id
+            },
+        });
         if(!user){
             throw({
                 status:404,
@@ -88,6 +93,7 @@ crtlUsers.findAll = async(req,res)=>{
         });
     };
 };
+//actualizar un usuario
 crtlUsers.updateOne = async(req,res)=>{
     const {id}=req.params;
     const {lastname,name,username,pass} = req.body;
@@ -107,7 +113,7 @@ crtlUsers.updateOne = async(req,res)=>{
             pass:  passEncript,
         },{
             where:{
-                id,
+                idUser:id,
                 state:true
             }
         });
@@ -136,7 +142,7 @@ crtlUsers.userDelete=async(req,res)=>{
     try {
         const user = await User.findOne({
             where:{
-                id:id,
+                idUser:id,
                 state:true,
             },
         });

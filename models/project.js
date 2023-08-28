@@ -32,7 +32,7 @@ const Project = sequelize.define('Project',{
 });
 //asociación de 1 a muchos con usuarios
 User.hasMany(Project,{foreignKey:'idUser'})
-Project.belongsTo(User,{foreignKey:'id'})
+Project.belongsTo(User,{foreignKey:'idUser'})
 //comprobar si existe la tabla, sino la crea
 Project.sync();
 

@@ -1,9 +1,9 @@
 import Project from '../models/project.js'
+import Task from '../models/Task.js';
 //crear un objeto para utilizar funciones como propiedades, con el fin de exportar solo el objeto
 export const crtlProject={};
 //crear un nuevo proyecto
 crtlProject.create = async(req,res)=>{
-    console.log("Esto es lo que recibe",req.body);
     const {title,date, description, idUser} = req.body;
     try {
         const newProject = await Project.create({
@@ -29,7 +29,12 @@ crtlProject.create = async(req,res)=>{
 crtlProject.findOne = async (req,res) =>{
     const {id} = req.params;
     try {
-        const project = await Project.findByPk(id);
+        const project = await Project.findOne({
+            where:{
+                idProject:id
+            },
+            include:{model:Task}
+        });
         if(!project){
             throw({
                 status:404,
@@ -90,7 +95,6 @@ crtlProject.findAll = async (req,res)=>{
 };
 //Actualizar un proyecto
 crtlProject.updateOne = async (req,res)=>{
-    console.log(req.params)
     const {id}= req.params;
     const {title,date,description,idUser} = req.body;
     
@@ -105,8 +109,7 @@ crtlProject.updateOne = async (req,res)=>{
         where:{
             id,
             state:true
-        }}
-        );
+        }});
         if(!projectUpdate){
             throw({
                 status:400,

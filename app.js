@@ -9,10 +9,12 @@ import helmet from 'helmet';
 import router from './routes/router.js';
 import routerUsers from './routes/user.router.js'
 import projectRouter from './routes/project.router.js';
+import routerTask from './routes/task.router.js';
 
 const app = express();
 
 //middlewares
+dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(morgan('dev'))
@@ -21,11 +23,12 @@ app.use(cors());
 app.use(router);
 app.use(routerUsers);
 app.use(projectRouter);
+app.use(routerTask);
 
 
 //puerto que se ejecutará el servidor
 const PORT = process.env.PORT || 3500;
 //poner el servidor en escucha
 app.listen(PORT,()=>{
-    console.log(`servidor corriendo en http://localhost:${PORT}/`)
-})
+    console.log(`servidor corriendo en http://localhost:${PORT}/`);
+});

@@ -1,9 +1,16 @@
 import express from 'express';
 import { crtlProject } from '../controllers/auth.project.js';
+import { validateSchema } from '../middlewares/validateSchema.js';
+import { body } from 'express-validator';
 const projectRouter = express.Router();
 
 //APIS
-projectRouter.post('/api/projects/create',crtlProject.create);
+projectRouter.post('/api/projects/create',
+validateSchema([
+    body('title').notEmpty().withMessage('El título es obligatorio'),
+    body('date').isISO8601().withMessage('La fecha no es válida'),
+]),
+crtlProject.create);
 projectRouter.get('/api/projects',crtlProject.findAll);
 projectRouter.get('/api/projects/find/:id',crtlProject.findOne);
 projectRouter.put('/api/projects/update/:id',crtlProject.updateOne);

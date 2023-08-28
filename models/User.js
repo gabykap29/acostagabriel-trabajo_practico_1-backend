@@ -3,7 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db.js";
 ///modelo de usuarios
 const User =  sequelize.define('User',{
-    id:{
+    idUser:{
         type:DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
